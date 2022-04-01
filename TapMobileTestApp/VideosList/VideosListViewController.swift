@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AVKit
+import WebKit
 
 class VideosListViewController: UIViewController {
     
@@ -36,7 +38,44 @@ class VideosListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let url = URL(string: "https://www.youtube.com/embed/_Kqtj14rxes")!
+        videos.append(url)
+        collectionView.reloadData()
+        
+        setupUI()
+        setupLayout()
+    }
+    
+    private func setupUI() {
+        view.addSubview(collectionView)
+        
+        view.backgroundColor = .white
+        
+        collectionView.register(VideoCell.self, forCellWithReuseIdentifier: Constants.cellIdentifier)
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    private func playVideo(with url: URL) {
+        let wv = WKWebView(frame: .zero)
+        wv.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(wv)
+        wv.load(URLRequest(url: url))
+        
+        NSLayoutConstraint.activate([
+            wv.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            wv.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            wv.widthAnchor.constraint(equalToConstant: 400),
+            wv.heightAnchor.constraint(equalToConstant: 200)
+        ])
     }
 }
 
@@ -49,11 +88,11 @@ extension VideosListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let video = videos[indexPath.row]
+        let video = videos[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier,
                                                       for: indexPath) as! VideoCell
         
-//        cell.titleLabel.text = video.title
+        cell.titleLabel.text = video.absoluteString
         
         return cell
     }
@@ -63,6 +102,7 @@ extension VideosListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        
+        let video = videos[indexPath.row]
+        playVideo(with: video)
     }
 }
