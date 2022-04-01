@@ -7,7 +7,6 @@
 
 import UIKit
 import AVKit
-import WebKit
 
 class VideosListViewController: UIViewController {
     
@@ -16,6 +15,7 @@ class VideosListViewController: UIViewController {
     }
     
     private var videos: [URL] = []
+    private var youtubeService = YoutubeService()
     
     private var collectionViewLayout: UICollectionViewFlowLayout = {
         let l = UICollectionViewFlowLayout()
@@ -26,28 +26,38 @@ class VideosListViewController: UIViewController {
     }()
     
     // Subviews
+    private lazy var searchBar: UISearchBar = {
+        let sb = UISearchBar(frame: .zero)
+        sb.translatesAutoresizingMaskIntoConstraints = false
+        sb.delegate = self
+        return sb
+    }()
+    
     private lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.dataSource = self
-        cv.delegate = self
-//        cv.contentInset = .init(top: 40, left: 0, bottom: 40, right: 0)
         cv.backgroundColor = .clear
         return cv
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = URL(string: "https://www.youtube.com/embed/_Kqtj14rxes")!
-        videos.append(url)
-        collectionView.reloadData()
+        videos = [
+            URL(string: "https://www.youtube.com/embed/_Kqtj14rxes")!,
+            URL(string: "https://www.youtube.com/embed/3dSouucdo0w")!,
+            URL(string: "https://www.youtube.com/embed/-JeBXsK4hhw")!,
+            URL(string: "https://www.youtube.com/embed/HfvKZUwh3Zg")!,
+            URL(string: "https://www.youtube.com/embed/eGy-E8-cTjQ")!
+        ]
         
         setupUI()
         setupLayout()
     }
     
     private func setupUI() {
+        view.addSubview(searchBar)
         view.addSubview(collectionView)
         
         view.backgroundColor = .white
@@ -57,24 +67,14 @@ class VideosListViewController: UIViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 15),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
-    }
-    
-    private func playVideo(with url: URL) {
-        let wv = WKWebView(frame: .zero)
-        wv.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(wv)
-        wv.load(URLRequest(url: url))
-        
-        NSLayoutConstraint.activate([
-            wv.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            wv.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            wv.widthAnchor.constraint(equalToConstant: 400),
-            wv.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 }
@@ -92,17 +92,19 @@ extension VideosListViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellIdentifier,
                                                       for: indexPath) as! VideoCell
         
-        cell.titleLabel.text = video.absoluteString
+        cell.url = video
         
         return cell
     }
 }
 
-extension VideosListViewController: UICollectionViewDelegate {
+extension VideosListViewController: UISearchBarDelegate {
     
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
-        let video = videos[indexPath.row]
-        playVideo(with: video)
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        
+        youtubeService.searchVideos(with: text) { result in
+            
+        }
     }
 }

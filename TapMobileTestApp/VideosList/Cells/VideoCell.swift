@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import WebKit
 
 final class VideoCell: UICollectionViewCell {
     
-    // MARK: - Public var
+    // MARK: - Private var
     
     // Subviews
     lazy var titleLabel: UILabel = {
@@ -21,21 +22,35 @@ final class VideoCell: UICollectionViewCell {
         return l
     }()
     
+    lazy var wv: WKWebView = {
+        var wv = WKWebView(frame: .zero)
+        wv.translatesAutoresizingMaskIntoConstraints = false
+        return wv
+    }()
+    
+    // MARK: - Public var
+    
+    var url: URL? = nil {
+        didSet {
+            wv.load(URLRequest(url: url!))
+        }
+    }
+    
     // MARK: - Public func
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(wv)
         
         contentView.layer.cornerRadius = 15
         contentView.backgroundColor = .lightGray
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+            wv.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            wv.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            wv.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            wv.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
     

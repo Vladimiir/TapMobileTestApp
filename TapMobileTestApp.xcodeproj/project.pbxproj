@@ -14,6 +14,7 @@
 		2FD5EFEA27F7563D006E2889 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FD5EFE927F7563D006E2889 /* Assets.xcassets */; };
 		2FD5EFED27F7563D006E2889 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD5EFEB27F7563D006E2889 /* LaunchScreen.storyboard */; };
 		2FD5EFF727F757D7006E2889 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5EFF627F757D7006E2889 /* VideoCell.swift */; };
+		2FD5F02927F76318006E2889 /* YoutubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD5F02827F76318006E2889 /* YoutubeService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		2FD5EFEC27F7563D006E2889 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2FD5EFEE27F7563D006E2889 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FD5EFF627F757D7006E2889 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		2FD5F02827F76318006E2889 /* YoutubeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				2FD5EFE027F7563C006E2889 /* AppDelegate.swift */,
 				2FD5EFE227F7563C006E2889 /* SceneDelegate.swift */,
+				2FD5F02727F76305006E2889 /* Network */,
 				2FD5EFF427F757BE006E2889 /* VideosList */,
 				2FD5EFE627F7563C006E2889 /* Main.storyboard */,
 				2FD5EFE927F7563D006E2889 /* Assets.xcassets */,
@@ -84,6 +87,14 @@
 				2FD5EFF627F757D7006E2889 /* VideoCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		2FD5F02727F76305006E2889 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2FD5F02827F76318006E2889 /* YoutubeService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +172,7 @@
 				2FD5EFF727F757D7006E2889 /* VideoCell.swift in Sources */,
 				2FD5EFE127F7563C006E2889 /* AppDelegate.swift in Sources */,
 				2FD5EFE327F7563C006E2889 /* SceneDelegate.swift in Sources */,
+				2FD5F02927F76318006E2889 /* YoutubeService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
