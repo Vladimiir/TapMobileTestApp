@@ -10,6 +10,8 @@ import AVKit
 
 class VideosListViewController: UIViewController {
     
+    // MARK: - Private var
+    
     private enum Constants {
         static let cellIdentifier = "VideoCell"
     }
@@ -41,20 +43,7 @@ class VideosListViewController: UIViewController {
         return cv
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        videos = [
-            URL(string: "https://www.youtube.com/embed/_Kqtj14rxes")!,
-            URL(string: "https://www.youtube.com/embed/3dSouucdo0w")!,
-            URL(string: "https://www.youtube.com/embed/-JeBXsK4hhw")!,
-            URL(string: "https://www.youtube.com/embed/HfvKZUwh3Zg")!,
-            URL(string: "https://www.youtube.com/embed/eGy-E8-cTjQ")!
-        ]
-        
-        setupUI()
-        setupLayout()
-    }
+    // MARK: - Private func
     
     private func setupUI() {
         view.addSubview(searchBar)
@@ -76,6 +65,23 @@ class VideosListViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+    // MARK: - Life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        videos = [
+            URL(string: "https://www.youtube.com/embed/_Kqtj14rxes")!,
+            URL(string: "https://www.youtube.com/embed/3dSouucdo0w")!,
+            URL(string: "https://www.youtube.com/embed/-JeBXsK4hhw")!,
+            URL(string: "https://www.youtube.com/embed/HfvKZUwh3Zg")!,
+            URL(string: "https://www.youtube.com/embed/eGy-E8-cTjQ")!
+        ]
+        
+        setupUI()
+        setupLayout()
     }
 }
 

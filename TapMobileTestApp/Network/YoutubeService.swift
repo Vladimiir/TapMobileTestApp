@@ -9,7 +9,11 @@ import Foundation
 
 struct YoutubeService {
     
+    // MARK: - Private var
+    
     private var urlSession = URLSession.shared
+    
+    // MARK: - Public func
     
     func searchVideos(with text: String,
                       completion: @escaping (Result<Data, Error>) -> Void) {
@@ -24,9 +28,8 @@ struct YoutubeService {
                                        completionHandler: { data, response, error in
             if let responceData = data,
                let responceString = String(data: responceData, encoding: .utf8) {
-                print(responceString)
-                
-                // Don't know how to get responce with correct values without using API....
+                // Don't know how to get responce with correct values without using API.... ;(
+                print(responceString)                
             }
         })
         
