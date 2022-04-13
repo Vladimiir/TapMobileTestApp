@@ -32,6 +32,8 @@ class VideosListViewController: UIViewController {
         let sb = UISearchBar(frame: .zero)
         sb.translatesAutoresizingMaskIntoConstraints = false
         sb.delegate = self
+        sb.backgroundImage = UIImage()
+        sb.backgroundColor = .red.withAlphaComponent(0.7)
         return sb
     }()
     
@@ -82,6 +84,10 @@ class VideosListViewController: UIViewController {
         
         setupUI()
         setupLayout()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
     }
 }
 
